@@ -1,0 +1,35 @@
+﻿body {
+}
+#Kop
+{
+    background-color:#5A4C9D;
+    top:0%;
+    left: 0%;
+    width: 100%;
+    height: 20%;
+    position: absolute;
+}
+#Kop h2
+{
+    text-align: center;
+    padding-top:3%;
+    color: white;
+}
+#Menu
+{
+    background-color:#FFD800;
+    top: 20%;
+    left: 0%;
+    width: 17%;
+    height: 100%;
+    position: absolute;
+}
+#Inhoud
+{
+    background-color:#FFE97F;
+    top:20%;
+    left: 17%;
+    width: 85%;
+    height: 100%;
+    position: absolute;
+}

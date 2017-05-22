@@ -1,0 +1,102 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <link href="PaginaLayout.css" rel="stylesheet" />
+    <title></title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div id="Kop"><h2>Movies & more movies</h2><br />
+            
+        </div>
+    <div id="Inhoud">
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="movie_id" DataSourceID="SqlDataSource1" EmptyDataText="There are no data records to display." AllowPaging="True" AllowSorting="True" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal" Height="360px" Width="830px">
+            <AlternatingRowStyle BackColor="#F7F7F7" />
+            <Columns>
+                <asp:CommandField ShowSelectButton="True" />
+                <asp:BoundField DataField="title" HeaderText="title" SortExpression="title" />
+                <asp:BoundField DataField="release_date" HeaderText="release_date" SortExpression="release_date" />
+            </Columns>
+            <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
+            <HeaderStyle BackColor="#4A3C8C" Font-Bold="True" ForeColor="#F7F7F7" />
+            <PagerStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" HorizontalAlign="Right" />
+            <RowStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" />
+            <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="#F7F7F7" />
+            <SortedAscendingCellStyle BackColor="#F4F4FD" />
+            <SortedAscendingHeaderStyle BackColor="#5A4C9D" />
+            <SortedDescendingCellStyle BackColor="#D8D8F0" />
+            <SortedDescendingHeaderStyle BackColor="#3E3277" />
+        </asp:GridView>
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:introaspdotnetConnectionString1 %>" DeleteCommand="DELETE FROM [movies] WHERE [movie_id] = @movie_id" InsertCommand="INSERT INTO [movies] ([title], [release_date]) VALUES (@title, @release_date)" ProviderName="<%$ ConnectionStrings:introaspdotnetConnectionString1.ProviderName %>" SelectCommand="SELECT [movie_id], [title], [release_date] FROM [movies]" UpdateCommand="UPDATE [movies] SET [title] = @title, [release_date] = @release_date WHERE [movie_id] = @movie_id">
+            <DeleteParameters>
+                <asp:Parameter Name="movie_id" Type="Int32" />
+            </DeleteParameters>
+            <InsertParameters>
+                <asp:Parameter Name="title" Type="String" />
+                <asp:Parameter Name="release_date" Type="DateTime" />
+            </InsertParameters>
+            <UpdateParameters>
+                <asp:Parameter Name="title" Type="String" />
+                <asp:Parameter Name="release_date" Type="DateTime" />
+                <asp:Parameter Name="movie_id" Type="Int32" />
+            </UpdateParameters>
+        </asp:SqlDataSource>
+        <br />
+        <asp:DetailsView ID="DetailsView1" runat="server" AllowPaging="True" AutoGenerateRows="False" DataKeyNames="review" DataSourceID="SqlDataSource4" Height="167px" Width="830px" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal">
+            <AlternatingRowStyle BackColor="#F7F7F7" />
+            <EditRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="#F7F7F7" />
+            <Fields>
+                <asp:BoundField DataField="review" HeaderText="review_id" InsertVisible="False" ReadOnly="True" SortExpression="review_id" />
+                <asp:BoundField DataField="summary" HeaderText="summary" SortExpression="summary" />
+                <asp:BoundField DataField="rating" HeaderText="rating" SortExpression="rating" />
+                <asp:BoundField DataField="review" HeaderText="review" SortExpression="review" />
+                <asp:BoundField DataField="reviewer" HeaderText="reviewer" SortExpression="reviewer" />
+            </Fields>
+            <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
+            <HeaderStyle BackColor="#4A3C8C" Font-Bold="True" ForeColor="#F7F7F7" />
+            <PagerStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" HorizontalAlign="Right" />
+            <RowStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" />
+        </asp:DetailsView>
+        <br />
+        <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:introaspdotnetConnectionString1 %>" DeleteCommand="DELETE FROM [reviews] WHERE [review_id] = @review_id" InsertCommand="INSERT INTO [reviews] ([movie_id], [summary], [rating], [review], [reviewer]) VALUES (@movie_id, @summary, @rating, @review, @reviewer)" SelectCommand="SELECT * FROM [reviews] WHERE ([movie_id] = @movie_id)" UpdateCommand="UPDATE [reviews] SET [movie_id] = @movie_id, [summary] = @summary, [rating] = @rating, [review] = @review, [reviewer] = @reviewer WHERE [review_id] = @review_id">
+            <DeleteParameters>
+                <asp:Parameter Name="review_id" Type="Int32" />
+            </DeleteParameters>
+            <InsertParameters>
+                <asp:Parameter Name="movie_id" Type="Int32" />
+                <asp:Parameter Name="summary" Type="String" />
+                <asp:Parameter Name="rating" Type="Int32" />
+                <asp:Parameter Name="review" Type="String" />
+                <asp:Parameter Name="reviewer" Type="String" />
+            </InsertParameters>
+            <SelectParameters>
+                <asp:ControlParameter ControlID="GridView1" Name="movie_id" PropertyName="SelectedValue" Type="Int32" />
+            </SelectParameters>
+            <UpdateParameters>
+                <asp:Parameter Name="movie_id" Type="Int32" />
+                <asp:Parameter Name="summary" Type="String" />
+                <asp:Parameter Name="rating" Type="Int32" />
+                <asp:Parameter Name="review" Type="String" />
+                <asp:Parameter Name="reviewer" Type="String" />
+                <asp:Parameter Name="review_id" Type="Int32" />
+            </UpdateParameters>
+        </asp:SqlDataSource>
+        <asp:TextBox ID="txtZoek" runat="server"></asp:TextBox>
+        <asp:Button ID="btnZoek" runat="server" Text="Button" />
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+        <div id="Menu">
+            <asp:Menu ID="Menu1" runat="server" DataSourceID="SiteMapDataSource1">
+            </asp:Menu>
+            <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
+        </div>
+    </form>
+</body>
+</html>
